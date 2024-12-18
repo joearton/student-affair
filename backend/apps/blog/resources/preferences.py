@@ -1,7 +1,8 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 from rest_framework import serializers
-from apps.blog.models import Preference, Slideshow, Navbar
+from apps.blog.models import Preference, Slideshow, Navbar, SocialMedia
+from rest_framework.response import Response
 
 
 class SlideshowSerializer(serializers.ModelSerializer):
@@ -16,9 +17,18 @@ class NavbarSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'link', 'icon', 'order', 'preference']
 
 
+class SocialMediaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialMedia
+        fields = ['id', 'facebook_url', 'twitter_url', 'instagram_url', 'linkedin_url', 'youtube_url', 'preference']
+
+
+
 class PreferenceSerializer(serializers.ModelSerializer):
     slideshows = SlideshowSerializer(many=True, read_only=True)
     navbars = NavbarSerializer(many=True, read_only=True)    
+    social_medias = SocialMediaSerializer(read_only=True)
+    
     class Meta:
         model = Preference
         fields = [
@@ -31,7 +41,8 @@ class PreferenceSerializer(serializers.ModelSerializer):
             'contact_email', 
             'contact_phone', 
             'slideshows', 
-            'navbars'
+            'navbars',
+            'social_medias'
         ]
         read_only_fields = ['id']
 
@@ -40,4 +51,11 @@ class PreferenceSerializer(serializers.ModelSerializer):
 class PreferenceViewSet(ModelViewSet):
     queryset = Preference.objects.all()
     serializer_class = PreferenceSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def list(self, request, *args, **kwargs):
+        first_object = self.get_queryset().first()
+        if first_object:
+            serializer = self.get_serializer(first_object)
+            return Response(serializer.data)
+        return Response({"detail": "No data found"}, status=404)

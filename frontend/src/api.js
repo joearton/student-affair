@@ -23,6 +23,9 @@ export const apiRequest = async (/** @type {any} */ endpoint, method = 'GET', da
             url: endpoint,
             method: method,
             data: data,
+            headers: {
+                'Content-Type': 'application/json',  // Menetapkan Content-Type untuk JSON
+            },
         });
         return response.data;
     } catch (error) {
@@ -51,6 +54,7 @@ export const apiFetch = async (/** @type {string} */ endpoint, options = {}) => 
 
     return response.json();
 };
+
 
 // Menyediakan export default untuk axios jika hanya butuh axios
 export default api;

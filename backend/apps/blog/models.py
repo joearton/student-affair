@@ -39,7 +39,7 @@ class Slideshow(BaseModel):
 class Navbar(BaseModel):
     preference = models.ForeignKey('Preference', on_delete=models.CASCADE, related_name="navbars", verbose_name=_("Preference"))
     title = models.CharField(_("Title"), max_length=255)
-    link = models.URLField(_("Link"))    
+    link = models.CharField(_("Link"), max_length=128)    
     icon = models.CharField(_("Icon"), max_length=255, null=True, blank=True)
     order = models.PositiveIntegerField(_("Order"), default=0)
     
@@ -47,20 +47,26 @@ class Navbar(BaseModel):
         verbose_name = _("Navigation Item")
         verbose_name_plural = _("Navigation Items")
         ordering = ["order"]
+        
+    def __str__(self):
+        return self.title
 
 
 class SocialMedia(BaseModel):
-    preference = models.ForeignKey('Preference', on_delete=models.CASCADE, related_name="social_media", verbose_name=_("Preference"))
+    preference = models.OneToOneField('Preference', on_delete=models.CASCADE, related_name="social_medias", verbose_name=_("Preference"))
     facebook_url = models.URLField(_('Facebook URL'), max_length=512, blank=True, null=True)
     twitter_url = models.URLField(_('Twitter URL'), max_length=512, blank=True, null=True)
     instagram_url = models.URLField(_('Instagram URL'), max_length=512, blank=True, null=True)
     linkedin_url = models.URLField(_('LinkedIn URL'), max_length=512, blank=True, null=True)
+    youtube_url = models.URLField(_('Youtube URL'), max_length=512, blank=True, null=True)
 
     class Meta:
         verbose_name = _('Social Media')
         verbose_name_plural = _('Social Media')
 
-
+    def __str__(self):
+        return self.preference.__str__()
+    
 
 class Category(BaseModel):
     name = models.CharField(_("Category Name"), max_length=100, help_text=_("Enter the category name."))
