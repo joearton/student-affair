@@ -21,7 +21,6 @@ coverage/
 *.tmp
 
 # Backend-specific ignores (Django)
-backend/db.sqlite3
 .sevima_liveapi_token
 
 # Frontend-specific ignores (Svelte)
