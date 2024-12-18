@@ -18,7 +18,29 @@ $secondary:                 #ffd333;
 
 
 // navbar 
-$navbar-dark-color:                 $white;
-$navbar-dark-hover-color:           $secondary;
+$navbar-dark-color:                 $gray-300;
+$navbar-dark-hover-color:           $white;
 $navbar-nav-link-padding-x:         .85rem !default;
 
+
+.topbar {
+    border-bottom: 1px solid $gray-500;
+    color: $white;
+    font-size: 13px;
+    a {
+        color: $white;
+        text-decoration: none;
+        font-size: 13px;
+    }
+}
+
+
+.navbar {
+    border-bottom: 7px solid $secondary;
+}
+
+
+main {
+    display: block;
+    min-height: 100vh;
+}

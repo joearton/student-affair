@@ -1,21 +1,31 @@
-<!-- Layout Utama -->
+<script>
+    import { preferences } from '../stores/preferences';
 
-<svelte:head>
-  <title>Welcome</title>
-</svelte:head>
+</script>
 
 
 <div>
 
-  <!-- Hero Section -->
-  <div class="hero-section text-center bg-light py-5">
-    <div class="container">
-      <h1 class="display-4 fw-bold">Selamat Datang di LMS</h1>
-      <p class="lead">Platform modern untuk mendukung pembelajaran mahasiswa</p>
-      <a href="#" class="btn btn-primary btn-lg">Daftar Sekarang</a>
+  <!-- Caraousel -->
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        {#each $preferences?.slideshows as slideshow, index}
+            <div class="carousel-item {index === 0 ? 'active' : ''}">
+                <img src={slideshow.image} class="d-block w-100" alt={slideshow.title}>
+            </div>
+        {/each}
     </div>
-  </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
 
+  
   <!-- Features Section -->
   <div class="features-section bg-white py-5">
     <div class="container text-center">
