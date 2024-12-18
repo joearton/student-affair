@@ -2,16 +2,17 @@ from datetime import datetime
 from django.contrib import admin
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.urls import path
+from django.urls import reverse, path
 from django.utils.html import format_html
 from django_summernote.admin import SummernoteModelAdmin
+from apps.scholarship.views import create_or_update_student
 from django.utils.translation import gettext as _
 from django.db.models import Count
 from apps.scholarship.admin_features import *
+from apps.scholarship.forms import StudentForm
+from apps.scholarship.models import *
 from gears.sevima import webservice
 from gears.sister import SisterAPI 
-from .models import *
 
 
 sevima_api = webservice.SevimaAPI()
@@ -266,22 +267,6 @@ class OfficeAdmin(BaseUnitAdmin):
     list_display = ('unit', 'english_name', 'date_establish', 'email', 'website')
     search_fields = ('unit__name', 'english_name', 'email')
     list_filter = ('date_establish',)
-
-
-from django import forms
-from dal import autocomplete
-from apps.worldmap.models import Province, Regency, District, Village
-
-class StudentForm(forms.ModelForm):
-    class Meta:
-        model = Student
-        fields = '__all__'
-        widgets = {
-            'province': autocomplete.ModelSelect2(url='ac.worldmap.province'),
-            'regency': autocomplete.ModelSelect2(url='ac.worldmap.regency', forward=['province']),
-            'district': autocomplete.ModelSelect2(url='ac.worldmap.district', forward=['regency']),
-            'village': autocomplete.ModelSelect2(url='ac.worldmap.village', forward=['district']),
-        }
         
         
 @admin.register(Student)
@@ -296,13 +281,31 @@ class StudentAdmin(BaseUnitAdmin):
         (None, {
             'fields': ('user', 'name', 'student_id', 'department')
         }),
-        ('Personal Information', {
+        (_('Personal Information'), {
             'fields': ('mobile_number', 'university_email')
         }),
         (_('Address Info'), {
             'fields': ('province', 'regency', 'district', 'village', 'address', 'postal_code',)
         }),
     )
+    readonly_fields = ['user', 'name', 'student_id', 'department']
+    
+    
+    def get_readonly_fields(self, request, obj):
+        readonly_fields = super().get_readonly_fields(request, obj)
+        if request.user.is_superuser:
+            return []
+        return readonly_fields
+
+
+    def changeform_view(self, request, object_id=None, form_url='', extra_context=None):
+        if object_id:
+            student = self.get_object(request, object_id)
+            student_sevima = sevima_api.getSingleMahasiswa(nim_mhs = student.student_id).get('data', {})
+            if student_sevima:
+                student, created = create_or_update_student(student_sevima)
+        return super().changeform_view(request, object_id, form_url, extra_context)
+
 
     def get_urls(self):
         urls = super().get_urls()
