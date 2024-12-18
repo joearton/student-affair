@@ -1,0 +1,33 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+{% load static i18n %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-white py-3 px-4 shadow">
+            <h3 class="mt-2 mb-4">{% trans "Import Student" %}</h3>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="student-ids" class="form-label">{% trans "Student ID" %}</label>
+                    <input type="text" class="form-control" id="student-ids" name="student-ids" placeholder="{% trans 'Enter student(s) ID' %}" required>
+                    <div class="form-text">{% trans 'You can use comma to get some student' %}</div>
+                </div>                    
+                <div class="mb-3">
+                    <label for="status" class="form-label">{% trans "Status" %}</label>
+                    <select name="status" id="status" class="form-control form-select">
+                        <option value="new">{% trans "New Student" %}</option>
+                        <option value="old">{% trans "Active or Graduated Student" %}</option>
+                    </select>
+                </div>
+                <div class="py-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="student-importer-search" />
+                    <button class="btn btn-primary" type="submit">{% trans "Import Student" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
