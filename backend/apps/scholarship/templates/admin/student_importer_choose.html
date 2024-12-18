@@ -1,0 +1,67 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+{% load static i18n %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-white py-3 px-4 shadow">
+            <h3 class="mb-4 text-primary">{% trans "Student List" %}</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <th></th>
+                    <th>{% trans "Fullname" %}</th>
+                    <th>{% trans "Birth Info" %}</th>
+                    <th>{% trans "Contact" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th>{% trans "Join Period" %}</th>
+                    <th>{% trans "Import?" %}</th>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <div>{{ student.nama_mhs }} ({{ student.nim_mhs }})</div>
+                                <div>{{ student.department }}</div>
+                            </td>
+                            <td>{{ student.tempat_lahir }}, {{ student.tanggal_lahir }}</td>
+                            <td>
+                                <div><i class="fa fa-envelope" aria-hidden="true"></i> {{ student.email }}</div>
+                                <div><i class="fa fa-phone-square" aria-hidden="true"></i> {{ student.hp }}</div>
+                            </td>
+                            <td>{{ student.status_mahasiswa_detail.nama_statusmhs }}</td>
+                            <td>{{ student.periode_masuk }}</td>
+                            <td>
+                                <input type="checkbox" name='student-imported' class='form-check' value='{{ student.nim_mhs }}' />
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="py-3 text-center">
+                <form method="POST" id="importForm">
+                    {% csrf_token %}
+                    <a href="/laboratory/scholarship/student/importer" class="btn btn-secondary mx-3">
+                        <i class="fa fa-search" aria-hidden="true"></i> {% trans "Search Again" %}
+                    </a>
+                    <input type="hidden" name="action" value="student-importer-execute" />
+                    <input type="hidden" name="student-ids" value="" />
+                    <button class="btn btn-primary mx-3" id="importButton" type="button">
+                        <i class="fa fa-user-circle" aria-hidden="true"></i> {% trans "Import Data" %}
+                    </button>
+                </form>
+                
+                <script>
+                    document.getElementById('importButton').addEventListener('click', function() {
+                        const selectedValues = Array.from(document.querySelectorAll('input[name="student-imported"]:checked')).map(checkbox => checkbox.value);
+                        document.querySelector('input[name="student-ids"]').value = selectedValues.join(',');                
+                        document.getElementById('importForm').submit();
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

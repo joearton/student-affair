@@ -1,0 +1,56 @@
+.brand-text {
+    font-weight: normal !important;
+}
+
+
+/* Django Auto Complete Light */
+
+.select2 {
+    span {
+        font-size: 15px;
+    }
+}
+
+select[name='action'] {
+    font-size: 15x;
+    padding: 3px;
+}
+
+select[class="filtered"] {
+    font-size: 15px;
+}
+
+.select2-container {
+    display: block !important;
+    width: auto !important;
+    border: 1px solid #cccccc !important;
+    .select2-selection--single {
+        min-height: 37px;
+        min-width: 195px;
+        padding-top: 11px;
+        padding-left: 0px;
+        font-size: 11px;
+    }
+    .select2-container--default,
+    .select2-selection--multiple,
+    .select2-selection__choice {
+        color: #111 !important;
+    }
+    .select2-results__options {
+        font-size: 13px;
+    }
+    .select2-selection__arrow {
+        top: 5px !important;
+        right: 5px !important;
+    }
+    .select2-selection__clear {
+        right: -5px !important;
+        font-size: 13px !important;
+
+    }
+}
+
+
+.django-ckeditor-widget {
+    width: 100% !important;
+}

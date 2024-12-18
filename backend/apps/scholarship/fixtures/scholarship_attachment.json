@@ -1,0 +1,92 @@
+[
+    {
+        "model": "scholarship.scholarshipattachment",
+        "pk": 1,
+        "fields": {
+            "name": "Proposal Document",
+            "description": "Detailed proposal document required for scholarship submission.",
+            "types": "pdf",
+            "max_size": 2000
+        }
+    },
+    {
+        "model": "scholarship.scholarshipattachment",
+        "pk": 2,
+        "fields": {
+            "name": "Passport Photo",
+            "description": "Recent passport-sized photo of the applicant.",
+            "types": "image",
+            "max_size": 500
+        }
+    },
+    {
+        "model": "scholarship.scholarshipattachment",
+        "pk": 3,
+        "fields": {
+            "name": "Identity Card (KTP)",
+            "description": "A scanned copy of the applicant's national ID card (KTP).",
+            "types": "pdf",
+            "max_size": 1000
+        }
+    },
+    {
+        "model": "scholarship.scholarshipattachment",
+        "pk": 4,
+        "fields": {
+            "name": "Curriculum Vitae (CV)",
+            "description": "Applicant's CV including educational and professional background.",
+            "types": "pdf",
+            "max_size": 1500
+        }
+    },
+    {
+        "model": "scholarship.scholarshipattachment",
+        "pk": 5,
+        "fields": {
+            "name": "Academic Transcript",
+            "description": "Certified academic transcript of the applicant.",
+            "types": "pdf",
+            "max_size": 3000
+        }
+    },
+    {
+        "model": "scholarship.scholarshipattachment",
+        "pk": 6,
+        "fields": {
+            "name": "Certificate of Achievement",
+            "description": "Scanned copy of any relevant achievement certificate.",
+            "types": "image",
+            "max_size": 2000
+        }
+    },
+    {
+        "model": "scholarship.scholarshipattachment",
+        "pk": 7,
+        "fields": {
+            "name": "Diploma (Ijazah)",
+            "description": "Scanned copy of the applicant's diploma (Ijazah).",
+            "types": "pdf",
+            "max_size": 2000
+        }
+    },
+    {
+        "model": "scholarship.scholarshipattachment",
+        "pk": 8,
+        "fields": {
+            "name": "Financial Statement",
+            "description": "Financial statement document proving applicant's financial need.",
+            "types": "pdf",
+            "max_size": 2500
+        }
+    },
+    {
+        "model": "scholarship.scholarshipattachment",
+        "pk": 9,
+        "fields": {
+            "name": "Supporting Documents",
+            "description": "Other supporting documents that may help the application.",
+            "types": "both",
+            "max_size": 5000
+        }
+    }
+]

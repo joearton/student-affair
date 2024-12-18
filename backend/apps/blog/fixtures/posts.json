@@ -1,0 +1,179 @@
+[
+    {
+      "model": "blog.post",
+      "pk": 1,
+      "fields": {
+        "title": "Understanding Django Basics",
+        "slug": "understanding-django-basics",
+        "author": 1,
+        "content": "Learn the basics of Django, a powerful Python web framework for building dynamic websites.",
+        "publication_date": "2024-12-16T10:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post1.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 2,
+      "fields": {
+        "title": "Mastering Django ORM",
+        "slug": "mastering-django-orm",
+        "author": 2,
+        "content": "Django ORM is a powerful tool that makes working with databases easy and efficient.",
+        "publication_date": "2024-12-16T11:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post2.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 3,
+      "fields": {
+        "title": "Building APIs with Django Rest Framework",
+        "slug": "building-apis-with-django-rest-framework",
+        "author": 1,
+        "content": "Learn how to build APIs with Django Rest Framework for your Django applications.",
+        "publication_date": "2024-12-16T12:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post3.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 4,
+      "fields": {
+        "title": "Django Deployment Strategies",
+        "slug": "django-deployment-strategies",
+        "author": 2,
+        "content": "Explore different strategies to deploy Django applications to production environments.",
+        "publication_date": "2024-12-16T13:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post4.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 5,
+      "fields": {
+        "title": "Django Templates and Views",
+        "slug": "django-templates-and-views",
+        "author": 1,
+        "content": "Django templates and views are essential parts of building a dynamic web application.",
+        "publication_date": "2024-12-16T14:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post5.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 6,
+      "fields": {
+        "title": "Introduction to Django Signals",
+        "slug": "introduction-to-django-signals",
+        "author": 2,
+        "content": "Understand how Django signals work and how to use them effectively in your projects.",
+        "publication_date": "2024-12-16T15:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post6.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 7,
+      "fields": {
+        "title": "Django Testing Framework",
+        "slug": "django-testing-framework",
+        "author": 1,
+        "content": "Explore the testing framework provided by Django to ensure your application is bug-free.",
+        "publication_date": "2024-12-16T16:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post7.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 8,
+      "fields": {
+        "title": "Django User Authentication",
+        "slug": "django-user-authentication",
+        "author": 2,
+        "content": "Learn how Django handles user authentication and how to implement it in your projects.",
+        "publication_date": "2024-12-16T17:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post8.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 9,
+      "fields": {
+        "title": "Integrating Django with Frontend Frameworks",
+        "slug": "integrating-django-with-frontend-frameworks",
+        "author": 1,
+        "content": "Learn how to integrate Django with popular frontend frameworks like React and Vue.",
+        "publication_date": "2024-12-16T18:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post9.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 10,
+      "fields": {
+        "title": "Django Middleware Essentials",
+        "slug": "django-middleware-essentials",
+        "author": 2,
+        "content": "Understand how middleware works in Django and how to use it to modify requests and responses.",
+        "publication_date": "2024-12-16T19:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post10.jpg"
+      }
+    },
+    {
+      "model": "blog.post",
+      "pk": 11,
+      "fields": {
+        "title": "Django Channels for Real-Time Applications",
+        "slug": "django-channels-for-real-time-applications",
+        "author": 1,
+        "content": "Django Channels is an extension that adds support for WebSockets, enabling real-time applications.",
+        "publication_date": "2024-12-16T20:00:00Z",
+        "kind": "POST",
+        "status": "PUBLISHED",
+        "categories": [],
+        "tags": [],
+        "featured_image": "posts/images/post11.jpg"
+      }
+    }
+  ]
+  

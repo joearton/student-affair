@@ -1,0 +1,28 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+{% load static i18n %}
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for tool in toolbox %}
+        <div class="col mb-3">
+            <div class="card h-100 shadow">
+                <div class="card-body">
+                    <h4 class="mb-3 fw-bold">{{ tool.title }}</h4>
+                    <p class="card-text">{{ tool.desc }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    {% if tool.url %}
+                        <a href="{{ tool.url }}" class="btn btn-success">{% trans "View Tool" %}</a>
+                    {% else %}
+                        <a href="#" class="btn btn-primary disabled">{% trans "Unavailable" %}</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
