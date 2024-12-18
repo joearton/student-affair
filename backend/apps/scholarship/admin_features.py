@@ -6,9 +6,9 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from django.urls.base import reverse_lazy
-from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
-from apps.scholarship.models import Department, Student, make_random_chars
+from apps.scholarship.models import Department
+from apps.scholarship.views import create_or_update_student
 from gears.sevima import webservice
 from django.contrib import messages
 
@@ -32,53 +32,15 @@ class StudentImporter(LoginRequiredMixin, TemplateView):
             student_id = student_id.replace(' ', '')
             student    = sevima_api.getSingleMahasiswa(nim_mhs = student_id).get('data', {})
             if student:
-                try:
-                    department = Department.objects.get(unit__code = student.get('units', ''))
-                except Department.DoesNotExist:
-                    department = None
-                if department:
-                    student['department'] = department
                 students.append(student)
         return students
-    
-    
-    def create_student_user(self, student):
-        username = student.get('nim_mhs')
-        email    = student.get('email', '')                
-        fullname = student.get('nama_mhs', '')
-        password = make_random_chars()
-        user, created = User.objects.get_or_create(
-            username = username,
-            defaults = {
-                'email': email,
-                'first_name': fullname.split(' ')[0],
-                'last_name': ' '.join(fullname.split(' ')[1:]),
-                'password': password
-            }
-        )
-        return user
-        
+            
         
     def create_students(self, students):
         students_created = []
         for student in students:
-            instance, student_created = Student.objects.get_or_create(
-                user = self.create_student_user(student),
-                defaults = {
-                    'name': student.get('nama_mhs'),
-                    'student_id': student.get('nim_mhs'),
-                    'department': student.get('department'),
-                    'sex': student.get('jenis_kelamin'),
-                    'status': student.get('status', Student.StudentStatus.AKTIF),
-                    'source': student.get('source', Student.DataSource.SEVIMA),
-                    'place_birth': student.get('tempat_lahir', ''),
-                    'date_birth': datetime.strptime(student.get('tanggal_lahir'), "%Y-%m-%d").date(),
-                    'address': student.get('alamat'),
-                    'postal_code': student.get('kodepos'),
-                    'mobile_number': student.get('hp'),
-                }
-            )
-            if student_created:
+            instance, created = create_or_update_student(student)
+            if created:
                 students_created.append(instance)
         return students_created
         
@@ -89,7 +51,7 @@ class StudentImporter(LoginRequiredMixin, TemplateView):
         action = request.POST.get('action')
         
         sevima_api = webservice.SevimaAPI()
-        students = self.get_students(student_ids, sevima_api) 
+        students   = self.get_students(student_ids, sevima_api) 
         
         if action == 'student-importer-search':
             context_data = self.get_context_data()
