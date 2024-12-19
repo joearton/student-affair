@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import { apiFetch } from '../../api';
+    import { apiFetch } from '../../lib/api';
 
     let users = [];
     let errorMessage = '';

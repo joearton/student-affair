@@ -1,45 +1,43 @@
 <script lang="ts">
-    let { children }  = $props();
-    let section_title = 'Welcome';
+    import { onMount } from 'svelte';
+    import { apiRequest } from '$lib/api';
+    import { preference } from '$lib/stores/preference';
+    
+    let { children } = $props();
+    let is_loading  = $state(true); 
 
+    onMount(async () => {
+        try {
+            const data = await apiRequest('/preferences/');
+            preference.set(data);
+        } catch (error) {
+        } finally {
+            is_loading = false; 
+        }
+    });
+
+    // import bootstrap
     import '../app.scss';
-
     if (typeof window !== 'undefined') {
         // @ts-ignore
         import('bootstrap/dist/js/bootstrap.bundle.min.js');
     }    
 
-    import { onMount } from 'svelte';
-    import { apiRequest } from '../api';
-    import { preferences } from '../stores/preferences';
-
-    import Topbar from '../widgets/Topbar.svelte';
-    import Navbar from '../widgets/Navbar.svelte';
-    import Footer from '../widgets/Footer.svelte';
-
-
-    onMount(async () => {
-        const data = await apiRequest('/preferences/');
-        let site_title = data
-        preferences.set(data);
-    });
+    import ClipPath from '$lib/components/ClipPath.svelte'
 
 </script>
 
-<svelte:head>
-    <title>{section_title}</title>
-</svelte:head>
-
-<div class="topbar bg-primary py-2">
-    <Topbar></Topbar>
-</div>
-
-<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
-    <Navbar></Navbar>
-</nav>
 
 <main>
-    {@render children()}
+    {#if is_loading}
+        <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    {:else}
+        <ClipPath></ClipPath>
+        {@render children()}
+    {/if}
 </main>
 
-<Footer></Footer>

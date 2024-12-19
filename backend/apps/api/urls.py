@@ -18,6 +18,12 @@ from apps.blog.resources.posts import PostViewset
 
 router.register('preferences', PreferenceViewSet, basename='preference')
 router.register('posts', PostViewset, basename='post')
+
+
+# configuration for scholarship
+from apps.scholarship.resources.scholarship import ScholarshipViewset
+
+router.register('scholarship', ScholarshipViewset, basename='scholarship')
     
 
 urlpatterns += router.urls

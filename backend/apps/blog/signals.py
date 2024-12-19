@@ -17,9 +17,7 @@ def create_default_data(sender, **kwargs):
         
         # Default Navbar
         Navbar.objects.bulk_create([
-            Navbar(preference=preference, title="Home", link="/", order=1, icon="fa-home"),
-            Navbar(preference=preference, title="About", link="/about", order=2, icon="fa-info-circle"),
-            Navbar(preference=preference, title="Contact", link="/contact", order=3, icon="fa-phone")
+            Navbar(preference=preference, title="Beranda", link="/", order=1, icon="fa-home"),
         ])
         print("Default Navbars created.")
 
