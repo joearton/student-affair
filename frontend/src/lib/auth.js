@@ -1,4 +1,4 @@
-import { apiRequest } from '../api';
+import { apiRequest } from './api';
 
 
 export const login = async (/** @type {string} */ username, /** @type {string} */ password) => {
