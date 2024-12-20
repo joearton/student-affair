@@ -1,37 +1,35 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import { page } from '$app/stores';
-    import { apiRequest } from '$lib/api';
-    import { htmlToText } from "html-to-text";
-    import { DateTime } from 'luxon';
-  
-    let post = $state({});
-    let slug = $page.params.slug + '/';
-    let post_excerpt = $state('');
-    let publication_date = $state({});
+    import { getPost } from '$lib/blog';
+    import { page } from '$app/state';
+
+    let slug = page.params.slug;
+    let post = $state({
+        featured_image: '',
+        title: '',
+        subtitle: '',
+        post_excerpt: '',
+        author: {
+            profile_picture_url: '',
+            username: ''
+        },
+        publication_date: '',
+        content: ''
+    });
  
     onMount(async () => {
-        const response = await apiRequest(`posts/${slug}`);
-            post = await response;
-
-        post_excerpt = htmlToText(post.content);
-
-        if (post_excerpt.length > 205) {
-            post_excerpt = post_excerpt.substring(0, 205) + '...';
-        }
-
-        publication_date = DateTime.fromISO(post.publication_date).toFormat('yyyy-MM-dd');
+        post = await getPost({slug: slug})
     });
 </script>
 
 
-<div class="mb-3 post-thumbnail" style="background: url({post.featured_image}) center center no-repeat; background-size: cover;">
+<div class="mb-3 post-thumbnail" style="background: url({post.featured_image}) bottom center no-repeat; background-size: cover;">
     <div class="overlay"></div>
     <div class="container px-3">
         <div class="position-absolute post-thumbnail-label">
             <h1 class="h4 bg-primary post-title fw-bold text-warning mb-0 p-3">{post.title}</h1>
             {#if post.subtitle}
-                <p class="post-subtitle bg-warning post-subtitle p-3 m-0">{post_excerpt}</p>
+                <p class="post-subtitle bg-warning post-subtitle p-3 m-0">{post.post_excerpt}</p>
             {/if}
         </div>
     </div>
@@ -48,7 +46,7 @@
                     <h5>{post.author?.username}</h5>
                 </div>
                 <div class="p-3">
-                    <div class="fa fa-calendar-alt"></div> {publication_date}
+                    <div class="fa fa-calendar-alt"></div> {post.publication_date}
                 </div>
             </div>
         </div>
@@ -73,12 +71,12 @@
 
     .post-thumbnail {
         position: relative;
-        height: 85vh;
+        height: 75vh;
     }
 
     .post-thumbnail-label {
-        width: 700px;
-        bottom: 15%;        
+        width: 70%;
+        bottom: 7%;        
     }
 
     .post-title, .post-subtitle {

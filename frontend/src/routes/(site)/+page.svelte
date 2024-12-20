@@ -1,26 +1,20 @@
 <script lang='ts'>
     import { preference } from '$lib/stores/preference';
-    import { apiRequest } from '$lib/api';
     import { onMount } from 'svelte';
-    import { htmlToText } from "html-to-text";
-    import { DateTime } from 'luxon';
+    import { getPosts } from '$lib/blog';
 
-    let maxLength = 100;
     let posts = $state([{
-        title          : '',
-        content        : '',
-        slug           : '',
-        featured_image : ''
+        title           : '',
+        content          : '',
+        slug             : '',
+        featured_image   : '',
+        publication_date : '',
+        post_excerpt     : ''
     }]);
 
     onMount(async () => {
         try {
-            posts = await apiRequest('posts/');
-            posts = posts.results;
-            posts = posts.map(post => {
-                post.publication_date = DateTime.fromISO(post.publication_date).toLocaleString(DateTime.DATE_FULL);
-                return post;
-            });
+            posts = await getPosts();
         } catch (error) {
         } finally {
         }        
@@ -128,7 +122,7 @@
                                         <h5 class='fw-bold'>{post.title}</h5>
                                     </a>
                                     <p class="card-text text-muted py-3">
-                                        { htmlToText(post.content).slice(0, maxLength) } ...
+                                        {post.post_excerpt}
                                     </p>
                                 </div>
                             </div>
