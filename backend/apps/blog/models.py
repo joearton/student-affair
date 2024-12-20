@@ -106,7 +106,8 @@ class Post(BaseModel):
         POST = "POST", _("Post")
 
     title = models.CharField(_("Title"), max_length=255, help_text=_("Enter the title of the post."))
-    slug = models.SlugField(_("Slug"), unique=True, help_text=_("Enter a unique slug for the post (used in the URL)."))
+    subtitle = models.CharField(_("Subtitle"), max_length=512, null=True, blank=True, help_text=_("Enter the subtitle of the post."))
+    slug = models.SlugField(_("Slug"), unique=True, help_text=_("Enter a unique slug for the post (used in the URL)."))    
     author = models.ForeignKey(User, verbose_name=_("Author"), on_delete=models.CASCADE, related_name="posts", help_text=_("Select the author of the post."))
     content = SummernoteTextField(_("Content"), help_text=_("Enter the full content of the post."))
     publication_date = models.DateTimeField(_("Publication Date"), default=now, help_text=_("Enter the publication date and time."))

@@ -11,9 +11,11 @@ from rest_framework.permissions import (
 
 
 class PostSerializer(serializers.ModelSerializer):
+    publication_date = serializers.SerializerMethodField()
+    
     class Meta:
         model = Post
-        fields = ["id", "title", "slug", "author", "content", "publication_date", "kind", "status", "featured_image",]
+        fields = ["id", "title", "subtitle", "slug", "author", "content", "publication_date", "kind", "status", "featured_image",]
         read_only_fields = ["id", "publication_date"]
 
     def validate_slug(self, value):
@@ -22,6 +24,8 @@ class PostSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("A post with this slug already exists.")
         return value
 
+    def get_publication_date(self, obj):
+        return obj.publication_date.strftime('%d-%m-%Y')
   
 
 class PostViewset(ModelViewSet):

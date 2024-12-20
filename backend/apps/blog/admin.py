@@ -15,7 +15,7 @@ class PostAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     fieldsets = (
         ('General Information', {
-            'fields': ('title', 'content', 'categories', 'tags')
+            'fields': ('title', 'subtitle', 'content', 'categories', 'tags')
         }),
         ('Content', {
             'fields': ('slug', 'featured_image')

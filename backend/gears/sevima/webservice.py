@@ -199,4 +199,4 @@ class SevimaAPI:
 
 
 # a = SevimaAPI()
-# print(a.getAllData('pendaftar').get('data')[0])
+# print(a.getSingleMahasiswa('2259201043'))

@@ -13,9 +13,13 @@ from rest_framework.permissions import (
 class ScholarshipSerializer(serializers.ModelSerializer):
     class Meta:
         model = Scholarship
-        fields = ["id", "name", "attachments"]
+        fields = [
+            "id", "name", "description", "requirement", "attachments", "status", 
+            "source", "destination", "start_date", "end_date", "quota", 
+            "faculties", "departments", "targets"
+        ]
         read_only_fields = ["id"]
-  
+
 
 class ScholarshipViewset(ModelViewSet):
     queryset = Scholarship.objects.all()

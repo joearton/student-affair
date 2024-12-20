@@ -27,8 +27,10 @@ router.register('posts', PostViewset, basename='post')
 
 # configuration for scholarship
 from apps.scholarship.resources.scholarship import ScholarshipViewset
+from apps.scholarship.resources.scholarship_app import ScholarshipApplicationViewset
 
 router.register('scholarship', ScholarshipViewset, basename='scholarship')
+router.register('scholarship_app', ScholarshipApplicationViewset, basename='scholarship_app')
     
 
 urlpatterns += router.urls
