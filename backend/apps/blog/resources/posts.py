@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import serializers
+from django.contrib.auth.models import User
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
 from apps.blog.models import Post
@@ -9,9 +10,16 @@ from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly
 )
 
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name', 'email'] 
+
+
 
 class PostSerializer(serializers.ModelSerializer):
     publication_date = serializers.SerializerMethodField()
+    author = AuthorSerializer(read_only=True)
     
     class Meta:
         model = Post
@@ -25,7 +33,7 @@ class PostSerializer(serializers.ModelSerializer):
         return value
 
     def get_publication_date(self, obj):
-        return obj.publication_date.strftime('%d-%m-%Y')
+        return obj.publication_date
   
 
 class PostViewset(ModelViewSet):

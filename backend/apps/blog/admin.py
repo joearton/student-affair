@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import *
+from django.utils.translation import gettext as _
+from .models import Post, Category, Tag, Slideshow, Navbar, SocialMedia, Preference
 
 
 @admin.register(Post)
@@ -14,21 +15,22 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     prepopulated_fields = {'slug': ('title',)}
     fieldsets = (
-        ('General Information', {
+        (_('General Information'), {
             'fields': ('title', 'subtitle', 'content', 'categories', 'tags')
         }),
-        ('Content', {
+        (_('Content'), {
             'fields': ('slug', 'featured_image')
         }),
-        ('Publication Settings', {
+        (_('Publication Settings'), {
             'fields': ('status', 'publication_date')
         }),
-        ('Audit Information', {
+        (_('Audit Information'), {
             'fields': ('date_created', 'date_modified', 'date_deleted'),
             'classes': ('collapse',),
         }),
     )
     readonly_fields = ('date_created', 'date_modified', 'date_deleted')
+
 
     def save_model(self, request, obj, form, change):
         """
@@ -61,9 +63,6 @@ class PostAdmin(admin.ModelAdmin):
     
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    """
-    Admin configuration for the Category model.
-    """
     list_display = ('name', 'slug', 'description')  # Kolom yang ditampilkan di daftar
     search_fields = ('name', 'slug')  # Kolom yang dapat dicari
     prepopulated_fields = {'slug': ('name',)}  # Otomatis mengisi slug berdasarkan nama

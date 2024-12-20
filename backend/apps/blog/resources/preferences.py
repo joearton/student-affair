@@ -21,7 +21,7 @@ class SocialMediaSerializer(serializers.ModelSerializer):
     class Meta:
         model = SocialMedia
         fields = ['id', 'facebook_url', 'twitter_url', 'instagram_url', 'linkedin_url', 'youtube_url', 'preference']
-
+ 
 
 
 class PreferenceSerializer(serializers.ModelSerializer):

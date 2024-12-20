@@ -25,6 +25,16 @@ $navbar-nav-link-padding-x:         .85rem !default;
 $link-decoration:                   none !default;
 
 
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 1160px,
+    xl: 1340px,
+    xxl: 1520px
+) !default;
+
+
+
 .topbar {
     border-bottom: 1px solid $gray-500;
     color: $white;
@@ -47,9 +57,6 @@ $link-decoration:                   none !default;
 
 .navbar {
     border-bottom: 7px solid $warning;
-    .nav-link {
-        font-size: 13.75px;
-    }
 }
 
 

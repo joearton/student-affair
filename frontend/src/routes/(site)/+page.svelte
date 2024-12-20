@@ -3,8 +3,9 @@
     import { apiRequest } from '$lib/api';
     import { onMount } from 'svelte';
     import { htmlToText } from "html-to-text";
+    import { DateTime } from 'luxon';
 
-    let maxLength = 50;
+    let maxLength = 100;
     let posts = $state([{
         title          : '',
         content        : '',
@@ -16,6 +17,10 @@
         try {
             posts = await apiRequest('posts/');
             posts = posts.results;
+            posts = posts.map(post => {
+                post.publication_date = DateTime.fromISO(post.publication_date).toLocaleString(DateTime.DATE_FULL);
+                return post;
+            });
         } catch (error) {
         } finally {
         }        
@@ -123,7 +128,7 @@
                                         <h5 class='fw-bold'>{post.title}</h5>
                                     </a>
                                     <p class="card-text text-muted py-3">
-                                        { htmlToText(post.content).slice(0, maxLength) }
+                                        { htmlToText(post.content).slice(0, maxLength) } ...
                                     </p>
                                 </div>
                             </div>
@@ -176,6 +181,7 @@
         position: relative;
         height: 215px;
     }
+
 
 
 </style>

@@ -18,5 +18,10 @@ SUMMERNOTE_CONFIG = {
     },
     'attachment_require_authentication': True,
     'disable_attachment': False,
+}
 
+
+ATTRIBUTES = {
+    '*': ['style', 'class', 'title', ],
+    'a': ['href', ],
 }
