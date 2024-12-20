@@ -51,10 +51,23 @@ class ScholarshipAttachment(BaseModel):
     def __str__(self):
         return self.name
 
-    
 
-class Scholarship(BaseModel):
+
+class ScholarshipTarget(BaseModel):
+    slug = models.SlugField(_('Slug'), max_length=21, unique=True)
+    name = models.CharField(_('Name'), max_length=255)
     
+    class Meta:
+        verbose_name = _('Scholarship Status')
+        verbose_name_plural = verbose_name
+        
+    def __str__(self):
+        return self.name
+    
+        
+        
+class Scholarship(BaseModel):
+
     class ScholarshipStatus(models.TextChoices):
         ONGOING = 'on-going', _('On Going')
         COMING_SOON = 'coming-soon', _('Coming Soon')
@@ -67,11 +80,6 @@ class Scholarship(BaseModel):
     class ScholarshipDest(models.TextChoices):
         INTERNAL = 'internal', _('Internal')
         EXTERNAL = 'external', _('External')
-
-    class ScholarshipTarget(models.TextChoices):
-        NEW_STUDENT = 'new-student', _('New Student')
-        ACTIVE_STUDENT = 'active-student', _('Active Student')
-        GRADUATED_STUDENT = 'graduated-student', _('Graduated Student')
 
 
     name = models.CharField(_('Name'), max_length=255)
@@ -96,17 +104,12 @@ class Scholarship(BaseModel):
         default=ScholarshipDest.INTERNAL,
         help_text=_('Destination of scholarship funds')
     )
-    target_audience = models.CharField(
-        verbose_name= _('Target Audience'), max_length=30,
-        choices=ScholarshipTarget.choices,
-        default=ScholarshipTarget.ACTIVE_STUDENT,
-        help_text=_('Who is eligible for this scholarship')
-    )
     start_date = models.DateTimeField(_('Start Date'))
     end_date = models.DateTimeField(_('End Date'))
     quota = models.PositiveIntegerField(_('Quota'), help_text=_('Number of recipients available'))
     faculties = models.ManyToManyField('Faculty', blank=True, related_name='scholarships', verbose_name=_('Faculties'))
     departments = models.ManyToManyField('Department', blank=True, related_name='scholarships', verbose_name=_('Departments'))
+    targets = models.ManyToManyField('ScholarshipTarget', blank=True, related_name='scholarships', verbose_name=_('Targets'))
 
     def __str__(self):
         return self.name
@@ -319,7 +322,6 @@ class ScholarshipApplication(BaseModel):
     application_date = models.DateField(_('Application Date'), auto_now_add=True)
     note = RichTextField(_('Note'), null = True, blank = True)
     status = models.CharField(_('Application Status'), max_length=20, choices=ApplicationStatus.choices, default=ApplicationStatus.PENDING)
-    reviewers = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewed_applications', verbose_name=_('Reviewer'))
    
     class Meta:
         verbose_name = _('Scholarship Application')

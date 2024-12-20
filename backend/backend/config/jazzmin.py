@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 JAZZMIN_SETTINGS = {
     "site_title": "Laboratory Admin",
@@ -10,11 +11,10 @@ JAZZMIN_SETTINGS = {
     "login_logo": "logo.png",
     "welcome_sign": "Welcome to the Laboratory Admin",
     "copyright": "ArtonLabs",
-    "search_model": [],
+    "search_model": ['scholarship.scholarshipapplication'],
     "user_avatar": None,
     "show_sidebar": True,
     "navigation_expanded": True,
-    "icons": {},
     "related_modal_active": True,
     "custom_css": 'api/styles/jazzmin.css',
     "custom_js": None,

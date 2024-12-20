@@ -330,6 +330,11 @@ class ScholarshipAttachmentAdmin(admin.ModelAdmin):
         return "-"
     description_preview.short_description = "Description"
     
+
+@admin.register(ScholarshipTarget)
+class ScholarshipTargetAdmin(admin.ModelAdmin):
+    list_display = ['name', 'slug']
+    
     
 class ScholarshipAttachmentRequirementInline(admin.TabularInline):
     model = ScholarshipAttachmentRequirement
@@ -349,16 +354,16 @@ class ScholarshipApplicationInline(admin.TabularInline):
     
 @admin.register(Scholarship)
 class ScholarshipAdmin(admin.ModelAdmin):
-    list_display = ('name', 'status', 'source', 'destination', 'target_audience', 'start_date', 'end_date', 'quota')
-    list_filter = ('status', 'source', 'destination', 'target_audience', 'start_date', 'end_date')
+    list_display = ('name', 'status', 'source', 'destination', 'start_date', 'end_date', 'quota')
+    list_filter = ('status', 'source', 'destination', 'targets')
     search_fields = ('name', 'description')
-    filter_horizontal = ('faculties', 'departments')
+    filter_horizontal = ('faculties', 'departments', 'targets')
     date_hierarchy = 'start_date'
     ordering = ('-start_date',)
     inlines = [ScholarshipAttachmentRequirementInline] 
     fieldsets = (
         (None, {
-            'fields': ('name', 'description', 'source', 'destination', 'target_audience')
+            'fields': ('name', 'description', 'source', 'destination', 'targets')
         }),
         ('Schedule & Quota', {
             'fields': ('status', 'start_date', 'end_date', 'quota')

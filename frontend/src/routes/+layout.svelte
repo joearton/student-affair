@@ -1,4 +1,5 @@
 <script lang="ts">
+    
     import { onMount } from 'svelte';
     import { apiRequest } from '$lib/api';
     import { preference } from '$lib/stores/preference';
@@ -8,7 +9,7 @@
 
     onMount(async () => {
         try {
-            const data = await apiRequest('/preferences/');
+            const data = await apiRequest('preferences/');
             preference.set(data);
         } catch (error) {
         } finally {

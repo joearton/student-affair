@@ -12,7 +12,8 @@
 
     onMount(async () => {
         try {
-            posts = await apiRequest('/posts/');
+            posts = await apiRequest('posts/');
+            posts = posts.results;
         } catch (error) {
         } finally {
         }        
@@ -24,7 +25,7 @@
 <div class=''>
 
     <!-- Caraousel -->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div id="front-carousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             {#each $preference?.slideshows as slideshow, index}
                 <div class="carousel-item {index === 0 ? 'active' : ''}">
@@ -32,11 +33,11 @@
                 </div>
             {/each}
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#front-carousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#front-carousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
@@ -105,23 +106,22 @@
             {#if posts.length === 0}
                 <p class="text-muted text-center">No posts available at the moment.</p>
             {:else}
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    {#each posts as post}
+                <div class="row row-cols-1 row-cols-md-4 g-4">
+                    {#each posts.slice(0, 8) as post}
                         <div class="col">
-                            <div class="card h-100 shadow-sm">
-                                <img 
-                                    src={post.featured_image || 'https://via.placeholder.com/300x200'} 
-                                    class="card-img-top" 
-                                    alt={post.title || 'Post Image'} 
-                                />
-                                <div class="card-body">
-                                    <h5 class="card-title">{post.title}</h5>
-                                    <p class="card-text text-muted">{post.content || 'No description available.'}</p>
+                            <a href={`/posts/${post.slug}`} rel='prefetch'>
+                                <div class="card h-100 shadow-lg">
+                                    <img 
+                                        src={post.featured_image || 'https://via.placeholder.com/300x200'} 
+                                        class="card-img-top" 
+                                        alt={post.title || 'Post Image'} 
+                                    />
+                                    <div class="card-body">
+                                        <h5 class="card-title">{post.title}</h5>
+                                        <p class="card-text text-muted">{post.content || 'No description available.'}</p>
+                                    </div>
                                 </div>
-                                <div class="card-footer text-end">
-                                    <a href={`/posts/${post.slug}`} class="btn btn-primary btn-sm">Read More</a>
-                                </div>
-                            </div>
+                            </a>
                         </div>
                     {/each}
                 </div>
@@ -162,6 +162,5 @@
         margin: 0 auto;
         font-size: 25px;
     }
-
 
 </style>
