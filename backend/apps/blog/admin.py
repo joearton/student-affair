@@ -63,6 +63,11 @@ class PostAdmin(admin.ModelAdmin):
     
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+
+    """
+    Admin configuration for the Category model.
+    """
+
     list_display = ('name', 'slug', 'description')  # Kolom yang ditampilkan di daftar
     search_fields = ('name', 'slug')  # Kolom yang dapat dicari
     prepopulated_fields = {'slug': ('name',)}  # Otomatis mengisi slug berdasarkan nama

@@ -51,8 +51,6 @@ class ScholarshipAttachment(BaseModel):
     def __str__(self):
         return self.name
 
-
-
 class ScholarshipTarget(BaseModel):
     slug = models.SlugField(_('Slug'), max_length=21, unique=True)
     name = models.CharField(_('Name'), max_length=255)
@@ -67,7 +65,6 @@ class ScholarshipTarget(BaseModel):
         
         
 class Scholarship(BaseModel):
-
     class ScholarshipStatus(models.TextChoices):
         ONGOING = 'on-going', _('On Going')
         COMING_SOON = 'coming-soon', _('Coming Soon')
@@ -80,6 +77,7 @@ class Scholarship(BaseModel):
     class ScholarshipDest(models.TextChoices):
         INTERNAL = 'internal', _('Internal')
         EXTERNAL = 'external', _('External')
+
 
 
     name = models.CharField(_('Name'), max_length=255)
@@ -104,6 +102,7 @@ class Scholarship(BaseModel):
         default=ScholarshipDest.INTERNAL,
         help_text=_('Destination of scholarship funds')
     )
+
     start_date = models.DateTimeField(_('Start Date'))
     end_date = models.DateTimeField(_('End Date'))
     quota = models.PositiveIntegerField(_('Quota'), help_text=_('Number of recipients available'))
@@ -323,7 +322,7 @@ class ScholarshipApplication(BaseModel):
     application_date = models.DateField(_('Application Date'), auto_now_add=True)
     note = RichTextField(_('Note'), null = True, blank = True)
     status = models.CharField(_('Application Status'), max_length=20, choices=ApplicationStatus.choices, default=ApplicationStatus.PENDING)
-   
+
     class Meta:
         verbose_name = _('Scholarship Application')
         verbose_name_plural = _('Scholarship Applications')

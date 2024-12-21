@@ -330,11 +330,10 @@ class ScholarshipAttachmentAdmin(admin.ModelAdmin):
         return "-"
     description_preview.short_description = "Description"
     
-
 @admin.register(ScholarshipTarget)
 class ScholarshipTargetAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug']
-    
+
     
 class ScholarshipAttachmentRequirementInline(admin.TabularInline):
     model = ScholarshipAttachmentRequirement

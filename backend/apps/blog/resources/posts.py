@@ -53,7 +53,6 @@ class PostSerializer(serializers.ModelSerializer):
 
     def get_publication_date(self, obj):
         return obj.publication_date
-  
 
 class PostViewset(ModelViewSet):
     queryset = Post.objects.all()
