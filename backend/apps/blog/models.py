@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
-from django_summernote.fields import SummernoteTextField
+from django_summernote.fields import SummernoteTextField as RichTextField
 from apps.api.models import BaseModel
 
 
@@ -106,9 +106,10 @@ class Post(BaseModel):
         POST = "POST", _("Post")
 
     title = models.CharField(_("Title"), max_length=255, help_text=_("Enter the title of the post."))
-    slug = models.SlugField(_("Slug"), unique=True, help_text=_("Enter a unique slug for the post (used in the URL)."))
+    subtitle = models.CharField(_("Subtitle"), max_length=512, null=True, blank=True, help_text=_("Enter the subtitle of the post."))
+    slug = models.SlugField(_("Slug"), unique=True, help_text=_("Enter a unique slug for the post (used in the URL)."))    
     author = models.ForeignKey(User, verbose_name=_("Author"), on_delete=models.CASCADE, related_name="posts", help_text=_("Select the author of the post."))
-    content = SummernoteTextField(_("Content"), help_text=_("Enter the full content of the post."))
+    content = RichTextField(_("Content"), help_text=_("Enter the full content of the post."))
     publication_date = models.DateTimeField(_("Publication Date"), default=now, help_text=_("Enter the publication date and time."))
     kind = models.CharField(_("Type"), max_length=10, choices=PostType.choices, default=PostType.POST)
     status = models.CharField(_("Status"), max_length=10, choices=PostStatus.choices, default=PostStatus.DRAFT, help_text=_("Select the status of the post."))

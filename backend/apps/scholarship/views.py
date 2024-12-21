@@ -42,8 +42,7 @@ def create_or_update_student(student_sevima):
             'address': student_sevima.get('alamat'),
             'postal_code': student_sevima.get('kodepos'),
             'mobile_number': student_sevima.get('hp'),
+            'department': department,
         }
-    )    
-    if department:
-        student.department = department
+    )            
     return (student, created)

@@ -1,9 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 
 
-router      = DefaultRouter()
+class NoSlashRouter(SimpleRouter):
+    trailing_slash = ''  # Hilangkan trailing slash
+
+
+router      = NoSlashRouter()
 urlpatterns = []
 
 
@@ -22,8 +27,10 @@ router.register('posts', PostViewset, basename='post')
 
 # configuration for scholarship
 from apps.scholarship.resources.scholarship import ScholarshipViewset
+from apps.scholarship.resources.scholarship_app import ScholarshipApplicationViewset
 
 router.register('scholarship', ScholarshipViewset, basename='scholarship')
+router.register('scholarship_app', ScholarshipApplicationViewset, basename='scholarship_app')
     
 
 urlpatterns += router.urls

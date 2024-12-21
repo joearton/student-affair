@@ -24,6 +24,7 @@ class SocialMediaSerializer(serializers.ModelSerializer):
 
 
 
+
 class PreferenceSerializer(serializers.ModelSerializer):
     slideshows = SlideshowSerializer(many=True, read_only=True)
     navbars = NavbarSerializer(many=True, read_only=True)    

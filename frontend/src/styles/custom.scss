@@ -22,6 +22,17 @@ $navbar-dark-color:                 $gray-300;
 $navbar-dark-hover-color:           $white;
 $navbar-nav-link-padding-x:         .85rem !default;
 
+$link-decoration:                   none !default;
+
+
+$container-max-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1240px,
+    xxl: 1320px
+) !default;
+
 
 .topbar {
     border-bottom: 1px solid $gray-500;
@@ -45,9 +56,6 @@ $navbar-nav-link-padding-x:         .85rem !default;
 
 .navbar {
     border-bottom: 7px solid $warning;
-    .nav-link {
-        font-size: 13.75px;
-    }
 }
 
 
