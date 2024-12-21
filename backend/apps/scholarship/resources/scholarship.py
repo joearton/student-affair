@@ -16,7 +16,7 @@ class ScholarshipSerializer(serializers.ModelSerializer):
         fields = [
             "id", "name", "description", "requirement", "attachments", "status", 
             "source", "destination", "start_date", "end_date", "quota", 
-            "faculties", "departments", "targets"
+            "faculties", "departments", "targets", "thumbnail"
         ]
         read_only_fields = ["id"]
 

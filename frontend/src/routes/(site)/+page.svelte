@@ -2,19 +2,15 @@
     import { preference } from '$lib/stores/preference';
     import { onMount } from 'svelte';
     import { getPosts } from '$lib/blog';
+    import type { Post } from '$lib/types/post';
 
-    let posts = $state([{
-        title           : '',
-        content          : '',
-        slug             : '',
-        featured_image   : '',
-        publication_date : '',
-        post_excerpt     : ''
-    }]);
+    let response = { results: [] };
+    let posts: Post[] = [];
 
     onMount(async () => {
         try {
-            posts = await getPosts();
+            response = await getPosts({page: 1, limit: 9});
+            posts = response.results;
         } catch (error) {
         } finally {
         }        
@@ -47,7 +43,7 @@
     <!-- Mahasiswa Baru -->
     <div class="new-student-section py-5 position-relative">
         <div class="container text-center py-5">
-            <h2 class="fw-bold display-5 text-primary mb-1">Pendaftaran Mahasiswa Baru</h2>
+            <h2 class="display-5 text-primary mb-1 fw-bold">Pendaftaran Mahasiswa Baru</h2>
             <p class="lead mb-4">Bergabunglah bersama kami untuk masa depan lebih cerah.</p>
             <a href="https://pmb.umko.ac.id" class="btn btn-primary btn-lg px-5 py-2 shadow-lg rounded-pill">
                 <i class="fa fa-link"></i> Daftar Sekarang
@@ -103,7 +99,6 @@
   
     <div class="post-section py-5">
         <div class="container">
-            <h2 class="fw-bold text-center mb-4">Latest Posts</h2>    
             {#if posts.length === 0}
                 <p class="text-muted text-center">No posts available at the moment.</p>
             {:else}
@@ -171,11 +166,10 @@
         font-size: 25px;
     }
 
+
     .post-thumbnail {
         position: relative;
         height: 215px;
     }
-
-
 
 </style>

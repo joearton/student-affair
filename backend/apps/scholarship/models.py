@@ -110,6 +110,7 @@ class Scholarship(BaseModel):
     faculties = models.ManyToManyField('Faculty', blank=True, related_name='scholarships', verbose_name=_('Faculties'))
     departments = models.ManyToManyField('Department', blank=True, related_name='scholarships', verbose_name=_('Departments'))
     targets = models.ManyToManyField('ScholarshipTarget', blank=True, related_name='scholarships', verbose_name=_('Targets'))
+    thumbnail = models.ImageField(_('Thumbnail'), upload_to='scholarships/thumbnails/', null=True, blank=True)
 
     def __str__(self):
         return self.name

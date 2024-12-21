@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
 // scss-docs-start gray-color-variables
 $white:                      #fff !default;
 $gray-100:                   #f8f9fa !default;
@@ -16,6 +18,7 @@ $black:                      #000 !default;
 $primary:                 #002e5c;
 $warning:                 #ffcc00;
 
+$font-family-sans-serif:  'Ubuntu', sans-serif;
 
 // navbar 
 $navbar-dark-color:                 $gray-300;
@@ -34,6 +37,64 @@ $container-max-widths: (
 ) !default;
 
 
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.ubuntu-light {
+    font-family: "Ubuntu", serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+.ubuntu-regular {
+    font-family: "Ubuntu", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.ubuntu-medium {
+    font-family: "Ubuntu", serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.ubuntu-bold {
+    font-family: "Ubuntu", serif;
+    font-weight: 900;
+    font-style: normal;
+}
+
+.ubuntu-light-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 300;
+    font-style: italic;
+}
+
+
+.ubuntu-regular-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+
+.ubuntu-medium-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+
+.ubuntu-bold-italic {
+    font-family: "Ubuntu", serif;
+    font-weight: 700;
+    font-style: italic;
+}
+  
 
 .topbar {
     border-bottom: 1px solid $gray-500;
@@ -64,4 +125,3 @@ main {
     display: block;
     min-height: 100vh;
 }
-
