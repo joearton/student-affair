@@ -3,8 +3,8 @@
     import { preference } from '$lib/stores/preference';
     import { writable, derived } from "svelte/store";
     import { apiRequest } from '$lib/api';
-    import { onMount } from 'svelte';
-    
+    import { onMount } from 'svelte'; 
+
     onMount(async () => {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
