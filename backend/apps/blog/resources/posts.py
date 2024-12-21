@@ -63,11 +63,16 @@ class PostViewset(ModelViewSet):
     
     def get_queryset(self):
         queryset = super().get_queryset()
+        search_keyword = self.request.query_params.get('search', None)
         category_name = self.request.query_params.get('category', None)
         tag_name = self.request.query_params.get('tag', None)
         slug = self.request.query_params.get('slug', None)
         post_id = self.request.query_params.get('id', None)
         
+        if search_keyword:
+            queryset  = queryset.filter(title__icontains=search_keyword)
+            queryset |= queryset.filter(content__icontains=search_keyword)
+            
         if category_name:
             queryset = queryset.filter(categories__name__iexact=category_name)
 

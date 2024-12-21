@@ -24,7 +24,11 @@ class ScholarshipSerializer(serializers.ModelSerializer):
     unit_names = serializers.SerializerMethodField()
     class Meta:
         model = Scholarship
-        fields = ["id", "name", "status", "start_date", "end_date", "description", "source", "destination", "target_audience", "quota", "unit_names"]
+        fields = [
+            "id", "name", "description", "requirement", "attachments", "status", 
+            "source", "destination", "start_date", "end_date", "quota", 
+            "faculties", "departments", "targets", "thumbnail"
+        ]
         read_only_fields = ["id"]
 
     def get_unit_names(self, obj):

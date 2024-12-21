@@ -362,7 +362,7 @@ class ScholarshipAdmin(admin.ModelAdmin):
     inlines = [ScholarshipAttachmentRequirementInline] 
     fieldsets = (
         (None, {
-            'fields': ('name', 'description', 'source', 'destination', 'targets')
+            'fields': ('name', 'description', 'source', 'thumbnail', 'destination', 'targets')
         }),
         ('Schedule & Quota', {
             'fields': ('status', 'start_date', 'end_date', 'quota')
